@@ -8,7 +8,7 @@ class NoticeTypeAdmin(admin.ModelAdmin):
 
 
 class NoticeSettingAdmin(admin.ModelAdmin):
-    list_display = ["id", "user", "notice_type", "medium", "send"]
+    list_display = ["id", "user", "notice_type", "medium_name", "send"]
 
 
 admin.site.register(NoticeQueueBatch)

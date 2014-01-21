@@ -74,8 +74,9 @@ class NoticeType(models.Model):
                 notice_type.save()
                 if verbosity > 1:
                     print "Updated %s NoticeType" % label
+            return notice_type
         except cls.DoesNotExist:
-            cls(label=label, display=display, description=description, default=default).save()
+            return cls(label=label, display=display, description=description, default=default).save()
             if verbosity > 1:
                 print "Created %s NoticeType" % label
 
@@ -95,6 +96,13 @@ class NoticeSetting(models.Model):
         verbose_name = _("notice setting")
         verbose_name_plural = _("notice settings")
         unique_together = ("user", "notice_type", "medium")
+
+    @property
+    def medium_name(self):
+        for nm in NOTICE_MEDIA:
+            if nm[0] == self.medium:
+                return nm[1]
+        return None
 
     @classmethod
     def for_user(cls, user, notice_type, medium):
